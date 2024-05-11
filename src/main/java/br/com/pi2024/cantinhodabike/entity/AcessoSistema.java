@@ -13,27 +13,52 @@ public class AcessoSistema {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "idLogin")
     private Long idLogin;
 
-    @Column
+    @Column(name = "Senha")
     private String senha;
 
-    @Column
+    @Column(name = "Status")
     private String sataus;
 
-    @Column
+    @Column(name = "Ativo")
     private String ativo;
+
+    //Getters e setters;
+
+    public Long getIdLogin() {
+        return idLogin;
+    }
+
+    public void setIdLogin(Long idLogin) {
+        this.idLogin = idLogin;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getSataus() {
+        return sataus;
+    }
+
+    public void setSataus(String sataus) {
+        this.sataus = sataus;
+    }
+
+    public String getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(String ativo) {
+        this.ativo = ativo;
+    }
     
 
 
 }
-
-
-// CREATE TABLE `AcessoSistema` (
-//    `idLogin` int NOT NULL AUTO_INCREMENT,
-//    `Senha` varchar(45) NOT NULL,
-//    `Status` varchar(45) NOT NULL,
-//    `Ativo` tinyint NOT NULL,
-//    PRIMARY KEY (`idLogin`)
-//  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
