@@ -14,13 +14,15 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 
     List<Cliente> findByNomeIgnoreCase(String nome);
 
-    List<Cliente> findByCpf(String cpf);
+    Cliente findByCpf(String cpf);
 
     List<Cliente> findByCelular(String celular);
 
     List<Cliente> findByEnderecoIgnoreCase(String endereco);
 
     List<Cliente> findByEmailIgnoreCase(String email);
+
+    public void deleteByCpf(String cpf);
 
 
 }

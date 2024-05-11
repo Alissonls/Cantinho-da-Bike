@@ -7,37 +7,37 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Entity 
-@Table(name = "CadastroCliente") 
+@Entity
+@Table(name = "CadastroCliente")
 public class Cliente {
-    
-    @Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
-    @Column(name = "idUser") 
-    private Long idUser;  
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idUser")
+    private Long idUser;
 
     @Column(name = "Nome")
-    private String nome;  
+    private String nome;
 
     @Column(name = "CPF")
-    private String cpf;  
+    private String cpf;
 
-    @Column(name = "Celular")    
-    private String celular;  
-    
+    @Column(name = "Celular")
+    private String celular;
+
     @Column(name = "Endereco")
-    private String endereco;  
-    
+    private String endereco;
+
     @Column(name = "Email")
-    private String email;  
+    private String email;
 
     public Long getIdUser() {
         return idUser;
     }
 
-     public void setIdUser(Long idUser) {
-         this.idUser = idUser;
-     }
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
+    }
 
     public String getCpf() {
         return cpf;
@@ -80,5 +80,3 @@ public class Cliente {
     }
 
 }
-
-
