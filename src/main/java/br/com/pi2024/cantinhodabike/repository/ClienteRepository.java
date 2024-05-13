@@ -10,9 +10,9 @@ import br.com.pi2024.cantinhodabike.entity.Cliente;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 
-    List<Cliente> findByIdUser(Long idUser);
+    Cliente findByIdUser(Long idUser);
 
-    List<Cliente> findByNomeIgnoreCase(String nome);
+    List<Cliente> findByNomeContainingIgnoreCase(String nome);
 
     Cliente findByCpf(String cpf);
 
