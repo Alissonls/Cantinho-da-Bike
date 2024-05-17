@@ -17,7 +17,7 @@ public class Pedidos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idPedidos")
-    private int idPedidos;
+    private long idPedidos;
 
     @ManyToOne
     @JoinColumn(name = "idUser")
@@ -34,11 +34,11 @@ public class Pedidos {
 
     //Getters e setters;
 
-    public int getIdPedidos() {
+    public long getIdPedidos() {
         return idPedidos;
     }
 
-    public void setIdPedidos(int idPedidos) {
+    public void setIdPedidos(Long idPedidos) {
         this.idPedidos = idPedidos;
     }
 

@@ -21,45 +21,45 @@ public class ProdutoController {
 
     @PostMapping
     public ResponseEntity<Produtos> cadastrarProduto(@RequestBody Produtos produto) {
-        Produtos novoProduto = produtoService.cadastrarProduto(produto);
-        return new ResponseEntity<>(novoProduto, HttpStatus.CREATED);
+        Produtos novoProduto = this.produtoService.cadastrarProduto(produto);
+        
+        ResponseEntity<Produtos> response = new ResponseEntity<>(novoProduto, HttpStatus.CREATED);
+        return response;
     }
 
     // Endpoint para buscar todos os produto (Cuidado ao usar!!!);
 
-    @GetMapping
+    @GetMapping("/buscartodos")
     public ResponseEntity<List<Produtos>> listarTodosProdutos() {
         List<Produtos> produtos = produtoService.listarTodosProdutos();
-        return ResponseEntity.ok(produtos);
+        return new ResponseEntity<>(produtos, HttpStatus.OK);
     }
 
     // Endpoint para buscar um produto pelo ID;
 
-    @GetMapping("/{id}")
+    @GetMapping("/buscar/porId/{id}")
     public ResponseEntity<Produtos> buscarProdutoPorId(@PathVariable("id") Long id) {
         Produtos produto = produtoService.buscarProdutoPorId(id);
-        if (produto != null) {
-            return ResponseEntity.ok(produto);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        if (produto == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } 
+        return new ResponseEntity<>(produto, HttpStatus.OK);
     }
 
     // Endpoint para buscar um produto pelo nome;
 
-    @GetMapping("/buscar/{nome}")
+    @GetMapping("/buscar/porNome/{nome}")
     public ResponseEntity<List<Produtos>> buscarProdutosPorNomeAproximado(@PathVariable("nome") String nome) {
         List<Produtos> produtosEncontrados = produtoService.buscarProdutosPorNomeAproximado(nome);
-        if (!produtosEncontrados.isEmpty()) {
-            return ResponseEntity.ok(produtosEncontrados);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        if (produtosEncontrados.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } 
+        return new  ResponseEntity<>(produtosEncontrados, HttpStatus.OK);
     }
 
     // Endpoint para excluir um produto existente pelo ID;
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deletar/porId/{id}")
     public ResponseEntity<Void> excluirProduto(@PathVariable("id") Long id) {
         produtoService.excluirProduto(id);
         return ResponseEntity.noContent().build();
@@ -67,7 +67,7 @@ public class ProdutoController {
 
     // Endpoint para atualizar um cliente existente pelo ID;
 
-    @PutMapping("/{id}")
+    @PutMapping("/atualizar/porId/{id}")
     public ResponseEntity<Produtos> atualizarProduto(@PathVariable("id") Long id, @RequestBody Produtos produto) {
         Produtos produtoAtualizado = produtoService.atualizarProduto(id, produto);
         if (produtoAtualizado != null) {

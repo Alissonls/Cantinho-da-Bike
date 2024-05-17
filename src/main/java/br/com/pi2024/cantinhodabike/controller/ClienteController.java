@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.pi2024.cantinhodabike.entity.Cliente;
@@ -28,7 +27,7 @@ public class ClienteController {
 
     // Endpoint para cadastrar um novo cliente;
 
-    @PostMapping
+    @PostMapping("/salvar")
     public ResponseEntity<Cliente> salvaCliente(@RequestBody Cliente cliente) {
         Cliente clienteSalvo = this.clienteService.salvaCliente(cliente);
 
@@ -39,15 +38,15 @@ public class ClienteController {
 
     // Endpoint para buscar todos os Clientes cadastrados, atenção ao usar pois pode
     // consumir bastante recurso dependendo da quantidade de clientes no cadastro;
-    @GetMapping
+    @GetMapping("/buscarTodos")
     public ResponseEntity<List<Cliente>> listaClientes() {
         List<Cliente> clientes = clienteService.listaClientes();
         return new ResponseEntity<>(clientes, HttpStatus.OK);
     }
 
     // Endpoint para buscar um cliente pelo ID;
-    @GetMapping("buscarPorIdUser")
-    public ResponseEntity<Cliente> buscaClientesPorIdUser(@RequestParam Long idUser) {
+    @GetMapping("/buscar/porIdUser/{idUser}")
+    public ResponseEntity<Cliente> buscaClientesPorIdUser(@PathVariable("idUser") Long idUser) {
         Cliente clientes = clienteService.buscaClientesPorIdUser(idUser);
         if (clientes == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -56,8 +55,8 @@ public class ClienteController {
     }
 
     // Endpoint para buscar um cliente pelo Nome;
-    @GetMapping("buscarPorNome")
-    public ResponseEntity<List<Cliente>> buscaClientesPorNome(@RequestParam String nome) {
+    @GetMapping("/buscar/porNome/{nome}")
+    public ResponseEntity<List<Cliente>> buscaClientesPorNome(@PathVariable("nome") String nome) {
         List<Cliente> clientes = clienteService.buscaClientesPorNomeAproximado(nome);
         if (clientes.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -66,8 +65,8 @@ public class ClienteController {
     }
 
     // Endpoint para buscar um cliente pelo CPF;
-    @GetMapping("buscarPorCpf")
-    public ResponseEntity<Cliente> buscaClientesPorCpf(@RequestParam String cpf) {
+    @GetMapping("/buscar/porCpf/{cpf}")
+    public ResponseEntity<Cliente> buscaClientesPorCpf(@PathVariable("cpf") String cpf) {
         Cliente cliente = clienteService.buscaClientesPorCpf(cpf);
         if (cliente == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -76,8 +75,8 @@ public class ClienteController {
     }
 
     // Endpoint para buscar um cliente pelo Celular;
-    @GetMapping("buscarPorCelular")
-    public ResponseEntity<List<Cliente>> buscaClientesPorCelular(@RequestParam String celular) {
+    @GetMapping("/buscar/porCelular/{celular}")
+    public ResponseEntity<List<Cliente>> buscaClientesPorCelular(@PathVariable("celular") String celular) {
         List<Cliente> clientes = clienteService.buscaClientesPorCelular(celular);
         if (clientes.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -86,8 +85,8 @@ public class ClienteController {
     }
 
     // Endpoint para buscar um cliente pelo Endereço
-    @GetMapping("buscarPorEndereco")
-    public ResponseEntity<List<Cliente>> buscaClientesPorEndereco(@RequestParam String endereco) {
+    @GetMapping("/buscar/porEndereco/{endereco}")
+    public ResponseEntity<List<Cliente>> buscaClientesPorEndereco(@PathVariable("endereco") String endereco) {
         List<Cliente> clientes = clienteService.buscaClientesPorEndereco(endereco);
         if (clientes.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -96,8 +95,8 @@ public class ClienteController {
     }
 
     // Endpoint para buscar um cliente pelo Email;
-    @GetMapping("buscarPorEmail")
-    public ResponseEntity<List<Cliente>> buscaClientePorEmail(@RequestParam String email) {
+    @GetMapping("/buscar/porEmail/{email}")
+    public ResponseEntity<List<Cliente>> buscaClientePorEmail(@PathVariable("email") String email) {
         List<Cliente> clientes = clienteService.buscaClientesPorEmail(email);
         if (clientes.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -106,14 +105,14 @@ public class ClienteController {
     }
 
     // Endpoint para excluir um cliente existente pelo ID
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deletar/porIdUser/{id}")
     public ResponseEntity<Void> excluirCliente(@PathVariable("id") Long id) {
         clienteService.excluirCliente(id);
         return ResponseEntity.noContent().build();
     }
 
     // Endpoint para excluir um cliente existente pelo CPF
-    @DeleteMapping("/excluirPorCpf/{cpf}")
+    @DeleteMapping("/deletar/porCpf/{cpf}")
     public ResponseEntity<Void> excluirClientePorCpf(@PathVariable("cpf") String cpf) {
         try {
             clienteService.excluirClientePorCpf(cpf);
@@ -125,7 +124,7 @@ public class ClienteController {
 
     // Endpoint para atualizar um cliente pelo ID;
 
-    @PutMapping("/{id}")
+    @PutMapping("/atualizar/porId/{id}")
     public ResponseEntity<Cliente> atualizarCliente(@PathVariable("id") Long id, @RequestBody Cliente cliente) {
         Cliente clienteAtualizado = clienteService.atualizarCliente(id, cliente);
         if (clienteAtualizado != null) {

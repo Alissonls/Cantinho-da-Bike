@@ -29,12 +29,11 @@ public class ProdutoService {
     }
 
     public Produtos buscarProdutoPorId(Long id) {
-        return produtoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Produto não encontrado com o ID: " + id));
-    }
+        return produtoRepository.findByIdProdutos(id);
+             }
 
     public List<Produtos> buscarProdutosPorNomeAproximado(String nome) {
-        return produtoRepository.findByNomeProdutoContaining(nome);
+        return produtoRepository.findByNomeContainingIgnoreCase(nome);
     }
 
     // Metodo para DELETE Request passando ID;

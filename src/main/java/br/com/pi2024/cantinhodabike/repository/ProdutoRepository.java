@@ -9,5 +9,9 @@ import br.com.pi2024.cantinhodabike.entity.Produtos;
 
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produtos, Long> {
-    List<Produtos> findByNomeProdutoContaining(String nome);
+
+    Produtos findByIdProdutos(Long idProdutos);
+
+    List<Produtos> findByNomeContainingIgnoreCase(String nome);
+
 }
