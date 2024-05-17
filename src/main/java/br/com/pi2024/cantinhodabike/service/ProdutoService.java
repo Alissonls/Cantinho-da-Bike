@@ -30,10 +30,10 @@ public class ProdutoService {
 
     public Produtos buscarProdutoPorId(Long id) {
         return produtoRepository.findByIdProdutos(id);
-             }
+    }
 
-    public List<Produtos> buscarProdutosPorNomeAproximado(String nome) {
-        return produtoRepository.findByNomeContainingIgnoreCase(nome);
+    public List<Produtos> buscarProdutosPorNomeAproximado(String nomeProduto) {
+        return produtoRepository.findByNomeProdutoContainingIgnoreCase(nomeProduto);
     }
 
     // Metodo para DELETE Request passando ID;
